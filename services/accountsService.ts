@@ -177,3 +177,44 @@ export const getLogin = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getFindById = (req: Request, res: Response) => {
+  console.log(`getFindById start time ${new Date().toISOString()}`);
+
+  const id = req.params.id;
+
+  accountCollection
+    .doc(id)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(400).json({
+          status: {
+            code: 400,
+            message: "account not found",
+            description: "Bad Request",
+          },
+          data: null,
+        });
+      }
+
+      return res.status(200).json({
+        status: {
+          code: 200,
+          message: "success",
+          description: "get account by id success",
+        },
+        data: doc.data(),
+      });
+    })
+    .catch((e) => {
+      return res.status(400).json({
+        status: {
+          code: 400,
+          message: e,
+          description: "Bad Request",
+        },
+        data: null,
+      });
+    });
+};

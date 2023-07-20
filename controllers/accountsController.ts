@@ -4,12 +4,14 @@ import {
   deleteAccount,
   getAllAccount,
   updateAccount,
+  getFindById,
   getLogin,
 } from "../services/accountsService";
 
 const Controller = exports.Router();
 
 Controller.get("/account", getAllAccount);
+Controller.get("/account/:id", getFindById);
 Controller.post("/account", createAccount);
 Controller.patch("/account/:id", updateAccount);
 Controller.delete("/account/:id", deleteAccount);
