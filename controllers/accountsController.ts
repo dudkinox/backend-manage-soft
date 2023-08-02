@@ -7,7 +7,11 @@ import {
   getFindById,
   getLogin,
 } from "../services/accountsService";
-import { createDefect, getAllDashboard } from "../services/dashboardService";
+import {
+  addProjectName,
+  createDefect,
+  getAllDashboard,
+} from "../services/dashboardService";
 
 const Controller = exports.Router();
 
@@ -20,5 +24,6 @@ Controller.post("/account/login", getLogin);
 
 Controller.get("/dashboard", getAllDashboard);
 Controller.post("/defect", createDefect);
+Controller.post("/project", addProjectName);
 
 export default Controller;

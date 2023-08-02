@@ -129,3 +129,33 @@ export const deleteAccount = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const addProjectName = async (req: Request, res: Response) => {
+  console.log(`addProjectName start time ${new Date().toISOString()}`);
+
+  try {
+    const data = req.body;
+
+    await accountCollection.doc().set(data);
+
+    return res.status(200).json({
+      status: {
+        code: 200,
+        message: "success",
+        description: "add project name success",
+      },
+      data: {
+        timestamp: new Date().toISOString(),
+      },
+    });
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
