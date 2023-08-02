@@ -100,7 +100,7 @@ export const updateAccount = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteAccount = async (req: Request, res: Response) => {
+export const deleteProject = async (req: Request, res: Response) => {
   console.log(`deleteAccount start time ${new Date().toISOString()}`);
 
   try {

@@ -1,7 +1,6 @@
 import exports from "express";
 import {
   createAccount,
-  deleteAccount as deleteProject,
   getAllAccount,
   updateAccount,
   getFindById,
@@ -10,6 +9,7 @@ import {
 import {
   addProjectName,
   createDefect,
+  deleteProject,
   getAllDashboard,
 } from "../services/dashboardService";
 
@@ -19,7 +19,6 @@ Controller.get("/account", getAllAccount);
 Controller.get("/account/:id", getFindById);
 Controller.post("/account", createAccount);
 Controller.patch("/account/:id", updateAccount);
-Controller.delete("/account/:id", deleteProject);
 Controller.post("/account/login", getLogin);
 
 Controller.get("/dashboard", getAllDashboard);
