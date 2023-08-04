@@ -5,6 +5,7 @@ import {
   updateAccount,
   getFindById,
   getLogin,
+  deleteAccount,
 } from "../services/accountsService";
 import {
   addProjectName,
@@ -20,6 +21,7 @@ Controller.get("/account/:id", getFindById);
 Controller.post("/account", createAccount);
 Controller.patch("/account/:id", updateAccount);
 Controller.post("/account/login", getLogin);
+Controller.delete("/account/:id", deleteAccount);
 
 Controller.get("/dashboard", getAllDashboard);
 Controller.post("/defect", createDefect);
