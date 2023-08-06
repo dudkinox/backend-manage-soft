@@ -189,3 +189,33 @@ export const doneProject = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const defectProject = async (req: Request, res: Response) => {
+  console.log(`defectProject start time ${new Date().toISOString()}`);
+
+  try {
+    const id = req.params.id;
+
+    await accountCollection.doc(id).update({ status: "defect" });
+
+    return res.status(200).json({
+      status: {
+        code: 200,
+        message: "success",
+        description: "defect project success",
+      },
+      data: {
+        timestamp: new Date().toISOString(),
+      },
+    });
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
