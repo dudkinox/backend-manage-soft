@@ -159,3 +159,33 @@ export const addProjectName = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const doneProject = async (req: Request, res: Response) => {
+  console.log(`doneProject start time ${new Date().toISOString()}`);
+
+  try {
+    const id = req.params.id;
+
+    await accountCollection.doc(id).update({ status: "done" });
+
+    return res.status(200).json({
+      status: {
+        code: 200,
+        message: "success",
+        description: "done project success",
+      },
+      data: {
+        timestamp: new Date().toISOString(),
+      },
+    });
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
