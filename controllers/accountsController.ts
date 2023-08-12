@@ -14,6 +14,7 @@ import {
   getAllDashboard,
   doneProject,
   defectProject,
+  getFindByIdDefect,
 } from "../services/dashboardService";
 
 const Controller = exports.Router();
@@ -31,5 +32,6 @@ Controller.post("/project", addProjectName);
 Controller.delete("/project/:id", deleteProject);
 Controller.post("/project-done/:id", doneProject);
 Controller.post("/project-defect/:id", defectProject);
+Controller.get("/project-defect/:id", getFindByIdDefect);
 
 export default Controller;

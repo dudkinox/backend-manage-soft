@@ -195,8 +195,15 @@ export const defectProject = async (req: Request, res: Response) => {
 
   try {
     const id = req.params.id;
+    const data = req.body;
 
     await accountCollection.doc(id).update({ status: "defect" });
+
+    await accountCollection
+      .doc(id)
+      .collection("defects-details")
+      .doc()
+      .set(data);
 
     return res.status(200).json({
       status: {
@@ -208,6 +215,29 @@ export const defectProject = async (req: Request, res: Response) => {
         timestamp: new Date().toISOString(),
       },
     });
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
+
+export const getFindByIdDefect = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const data = await accountCollection.doc(id).get();
+
+    console.log(data.data());
+
+    // const response: DashboardResponse = {
+    //   id: data.id,
+    //   project_name: data.data()?.project_name,
   } catch (e: any) {
     return res.status(400).json({
       status: {
