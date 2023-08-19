@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import firebase from "../config/firebase";
 import { DashboardResponse } from "../models/response/dashboardResponse";
+import { DefectDetailResponse } from "../models/response/defectDetailResponse";
 
 const accountCollection = firebase.collection("defects");
 
@@ -252,7 +253,16 @@ export const getFindByIdDefect = async (req: Request, res: Response) => {
 
 export const getAllDetailDefect = async (req: Request, res: Response) => {
   try {
-    const data = await firebase.collection("defects-details").get();
+    const data = await firebase.collection("defect-details").get();
+
+    const response: DefectDetailResponse[] = [];
+
+    data.forEach((doc) => {
+      response.push({
+        id: doc.id,
+        detail: doc.data().detail,
+      });
+    });
 
     return res.status(200).json({
       status: {
@@ -260,7 +270,7 @@ export const getAllDetailDefect = async (req: Request, res: Response) => {
         message: "success",
         description: "get all defect success",
       },
-      data: data.docs,
+      data: response,
     });
   } catch (e: any) {
     return res.status(400).json({
