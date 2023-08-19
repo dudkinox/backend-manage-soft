@@ -197,7 +197,7 @@ export const defectProject = async (req: Request, res: Response) => {
     const id = req.params.id;
     const data = req.body;
 
-    await accountCollection.doc(id).update({ status: "defect" });
+    await accountCollection.doc(id).update({ status: "defect", tag: data.tag });
 
     await accountCollection
       .doc(id)
@@ -238,6 +238,30 @@ export const getFindByIdDefect = async (req: Request, res: Response) => {
     // const response: DashboardResponse = {
     //   id: data.id,
     //   project_name: data.data()?.project_name,
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
+
+export const getAllDetailDefect = async (req: Request, res: Response) => {
+  try {
+    const data = await firebase.collection("defects-details").get();
+
+    return res.status(200).json({
+      status: {
+        code: 200,
+        message: "success",
+        description: "get all defect success",
+      },
+      data: data.docs,
+    });
   } catch (e: any) {
     return res.status(400).json({
       status: {
