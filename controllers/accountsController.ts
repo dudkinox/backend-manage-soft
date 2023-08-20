@@ -16,6 +16,7 @@ import {
   defectProject,
   getFindByIdDefect,
   getAllDetailDefect,
+  getDetailDefectById,
 } from "../services/dashboardService";
 
 const Controller = exports.Router();
@@ -35,5 +36,6 @@ Controller.post("/project-done/:id", doneProject);
 Controller.post("/project-defect/:id", defectProject);
 Controller.get("/project-defect/:id", getFindByIdDefect);
 Controller.get("/defect/detail-all", getAllDetailDefect);
+Controller.get("/defect/detail/:id", getDetailDefectById);
 
 export default Controller;

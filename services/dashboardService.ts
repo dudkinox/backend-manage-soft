@@ -229,12 +229,6 @@ export const getFindByIdDefect = async (req: Request, res: Response) => {
     const id = req.params.id;
 
     const data = await accountCollection.doc(id).get();
-
-    console.log(data.data());
-
-    // const response: DashboardResponse = {
-    //   id: data.id,
-    //   project_name: data.data()?.project_name,
   } catch (e: any) {
     return res.status(400).json({
       status: {
@@ -267,6 +261,28 @@ export const getAllDetailDefect = async (req: Request, res: Response) => {
         description: "get all defect success",
       },
       data: response,
+    });
+  } catch (e: any) {
+    return res.status(400).json({
+      status: {
+        code: 400,
+        message: e,
+        description: "Bad Request",
+      },
+      data: null,
+    });
+  }
+};
+
+export const getDetailDefectById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const data = await firebase.collection("defect-details").doc(id).get();
+
+    return res.status(200).json({
+      tag: data.data()?.tag,
+      detail: data.data()?.detail,
     });
   } catch (e: any) {
     return res.status(400).json({
