@@ -200,11 +200,7 @@ export const defectProject = async (req: Request, res: Response) => {
 
     await accountCollection.doc(id).update({ status: "defect", tag: data.tag });
 
-    await accountCollection
-      .doc(id)
-      .collection("defects-details")
-      .doc()
-      .set(data);
+    await firebase.collection("defect-details").doc(id).set(data);
 
     return res.status(200).json({
       status: {
